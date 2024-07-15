@@ -1,0 +1,119 @@
+{
+    "description": "bow test",
+    "supported_items": "#minecraft:enchantable/bow",
+    "weight": 1,
+    "max_level": 1,
+    "min_cost": {
+      "base": 0,
+      "per_level_above_first": 0
+    },
+    "max_cost": {
+      "base": 0,
+      "per_level_above_first": 0
+    },
+    "anvil_cost": 0,
+    "slots": [
+      "mainhand"
+    ],
+    "effects": {
+      "minecraft:projectile_spawned": [
+        {
+          "effect": {
+            "type": "minecraft:ignite",
+            "duration": 100
+          },
+          "requirements": {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "#minecraft:arrows",
+              "nbt": "{item:{components:{\"minecraft:custom_data\":{flame:1}}}}"
+            }
+          }
+        }
+      ],
+      "minecraft:hit_block": [
+        {
+          "effect": {
+            "type": "minecraft:all_of",
+            "effects": [
+              {
+                "type": "minecraft:explode",
+                "damage_type": "minecraft:explosion",
+                "radius": 5,
+                "block_interaction": "tnt",
+                "small_particle": {
+                  "type": "minecraft:explosion"
+                },
+                "large_particle": {
+                  "type": "minecraft:explosion"
+                },
+                "sound": "entity.generic.explode",
+                "knockback_multiplier": 2,
+                "attribute_to_user": true,
+                "create_fire": false
+              },
+              {
+                "type": "minecraft:run_function",
+                "function": "namespace:kill_entity"
+              }
+            ]
+          },
+          "requirements": {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "#minecraft:arrows",
+              "nbt": "{item:{components:{\"minecraft:custom_data\":{explosion:1}}}}"
+            }
+          }
+        },
+        {
+          "effect": {
+            "type": "minecraft:run_function",
+            "function": "namespace:set_fire"
+          },
+          "requirements": {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "#minecraft:arrows",
+              "nbt": "{item:{components:{\"minecraft:custom_data\":{flame:1}}}}"
+            }
+          }
+        }
+      ],
+      "minecraft:post_attack": [
+        {
+          "enchanted": "attacker",
+          "affected": "victim",
+          "effect": {
+            "type": "minecraft:explode",
+            "damage_type": "minecraft:explosion",
+            "radius": 5,
+            "block_interaction": "tnt",
+            "small_particle": {
+              "type": "minecraft:explosion"
+            },
+            "large_particle": {
+              "type": "minecraft:explosion"
+            },
+            "sound": "entity.generic.explode",
+            "knockback_multiplier": 2,
+            "attribute_to_user": true,
+            "create_fire": false
+          },
+          "requirements": {
+            "condition": "minecraft:damage_source_properties",
+            "predicate": {
+              "direct_entity": {
+                "type": "#minecraft:arrows",
+                "nbt": "{item:{components:{\"minecraft:custom_data\":{explosion:1}}}}"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+  

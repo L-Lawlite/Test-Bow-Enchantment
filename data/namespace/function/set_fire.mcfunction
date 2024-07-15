@@ -1,0 +1,1 @@
+execute if block ^ ^ ^0.2 #air run setblock ^ ^ ^0.2 fire
